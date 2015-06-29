@@ -1,0 +1,157 @@
+html {
+  height: 100%;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0 0;
+}
+
+a {
+  outline: none;
+  color: #00B7FF;
+}
+
+h1 {
+  color: #e67e22;
+  font-size: 56px;
+  margin: 0 0;
+  padding-bottom: 2vh;
+}
+
+h2 {
+  margin-top: 3vh;
+  margin-bottom: 8vh;
+  font-size: 48px;
+  color: #2980B9;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  color: white;
+  background-color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  height: auto;
+}
+
+.container {
+  background: url(../images/ping-pong.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 90vh;
+  width: 100%;
+  position: absolute;
+}
+
+.row {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form {
+  color: #2980B9;
+  margin-top: -5vh;
+}
+
+
+.signup {
+  width: 50%;
+  padding-top: 2vh;
+  margin: 0 auto;
+  margin-top: 10vh;
+  text-align: center;
+  background-color: #2c3e50;
+  padding-bottom: 8vh;
+  border-radius: 20px;
+  border: 2px solid #e67e22;
+  box-shadow: 5px 5px 20px #000;
+}
+
+.col1 {
+  margin-bottom: -2vh;
+  display: inline-block;
+  width: 35%;
+  text-align: left;
+  heigh: auto;
+}
+
+.col2 {
+  display: inline-block;
+  width: 50%;
+  text-align: left;
+  height: auto;
+}
+
+input{
+  outline: none;
+  font-size: 14px;
+  padding: 2px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+input:focus{
+  border: solid 1px #e67e22;
+  box-shadow: 0 0 5px 1px #e67e22;
+}
+
+input.login {
+  margin-top: 3vh;
+  margin-bottom: 8vh;
+	padding: 8px 15px;
+	border-radius: 10px;
+  border-color: #2980b9;
+	font-size: 16px;
+	color: #FFF;
+	text-decoration: none;
+  background-color: #3498DB;
+  text-shadow: 0px -2px #2980B9;
+}
+
+
+a.login {
+  /*margin-top: 5vh;*/
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  background-color: #e67e22;
+  text-shadow: 0px -2px #d35400;
+}
+
+a:focus {
+  border: solid 1px #3498DB;
+  box-shadow: 0 0 5px 1px #2980B9;
+}
+
+.title {
+  width: 100%;
+  height: auto;
+  background-color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  text-align: center;
+}
+
+.main {
+  margin: 0 auto;
+  margin-top: 10vh;
+  width: 80%;
+  border-left: 2px solid #3498db;
+  border-right: 2px solid #3498db;
+  height: auto;
+}
+
+.user-info {
+  text-align: right;
+}
+
+.errors {
+  color: red;
+  margin-top: -50px;
+}

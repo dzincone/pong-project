@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .header
+    .title
+      h1 Galvanize Ping Pong
+    .user-info
+      form(action="/logout", method="post")
+        input(type="submit", value="Logout")
+  .main
+    .row

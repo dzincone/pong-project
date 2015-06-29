@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .header
+    .title
+      h1 Galvanize Ping Pong
+  .container
+    .row
+      .signup
+        h2 Sign In
+        .form
+          form(action="/", method="post")
+            .row
+              .col1
+                h3
+                  label(for="username") Username 
+              .col2
+                input.input(type="email", id="username", name="username", autofocus, value= username)
+            .row
+              .col1
+                h3 
+                  label(for="password") Password 
+              .col2
+                input.input(type="password", id="password", name="password")
+            .row 
+              input.login(type="submit", value="Log In")
+            if(error)
+              .errors
+                each val in error
+                  p= val
+        .newAccount
+            a.login(href="/signup") Create Account
+    

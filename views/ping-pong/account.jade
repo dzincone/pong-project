@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+  .header
+    .title
+      h1 Galvanize Ping Pong
+  .row
+    h2 Create Your Account
+  .main
+    .row
+      .newSignup
+        if(error)
+          .errors
+            each val in error
+              p= val
+        form(action="/signup" method="post")
+          .row
+            .col1
+              h3
+                label(for="emailSignup") Username
+            .col2
+              input(type="email" id="emailSignup" name="email")
+          .row
+            .col1
+              h3
+                label(for="passwordSignup") Password
+            .col2
+              input(type="password" id="passwordSignup" name="password")
+          .row
+            .col1
+              h3
+                label(for="passwordSignupConfirm") Confirm Password
+            .col2
+              input(type="password" id="passwordSignupConfirm" name="passwordConfirm")
+            input.login(type="submit" value="Create Account")
