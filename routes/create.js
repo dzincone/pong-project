@@ -26,7 +26,7 @@ router.post('/signup', function(req, res, next) {
   }
   if (errors.length === 0) {
   res.cookie("currentUser", req.body.email);
-  usernameCollection.insert({username: req.body.email, password: hash});
+  usernameCollection.insert({username: req.body.email, password: hash, name: req.body.first_name});
   res.redirect('/');
   }
   else {
