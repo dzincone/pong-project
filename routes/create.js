@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
-var db = require('monk')('localhost/pong-db');
+var db = require('monk')(process.env.MONGOLAB_URI);
 var usernameCollection = db.get('login');
 
 /* GET home page. */
