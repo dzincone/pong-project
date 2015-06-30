@@ -3,11 +3,15 @@ var router = express.Router();
 var bcrypt = require('bcryptjs');
 var db = require('monk')(process.env.MONGOLAB_URI);
 var usernameCollection = db.get('login');
+var gamesCollection = db.get('games');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  req.cookies.success;
   if(req.cookies.currentUser) {
-    res.render('ping-pong/home');
+      gamesCollection.find({name: req.cookies.currentUser}, function(err, data) {
+        res.render('ping-pong/home', {success: req.cookies.success, data: data})
+      });
   }else {
   res.render('index', { title: 'Express' });
 }
@@ -43,7 +47,18 @@ router.post('/', function (req, res, next) {
 router.post('/logout', function (req, res, next) {
   res.clearCookie("currentUser");
   res.redirect("/");
-})
+});
+
+
+router.post('/home', function( req, res, next) {
+  res.cookie("success", "success", {maxAge: 6000});
+  gamesCollection.insert({mode: req.body.mode,
+                          type: req.body.type,
+                          games: req.body.games,
+                          points: req.body.points,
+                          name: req.cookies.currentUser});
+  res.redirect('/');
+});
 
 
 module.exports = router;

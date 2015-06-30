@@ -5,7 +5,21 @@ block content
     .title
       h1 Galvanize Ping Pong
     .user-info
-      form(action="/logout", method="post")
-        input(type="submit", value="Logout")
-  .main
+      form.logout(action="/logout", method="post")
+        input.logout(type="submit", value="Logout")
+  .account-main
     .row
+      .current-games
+        for val in data
+          .upcoming 
+            span= val.mode + " "
+            span= val.type + " "
+            span= val.games + " "
+            span= val.points + " "
+            
+    .row
+      .play
+          button.button(type="button" value="1 Time Play") 1 Time Play
+    .row
+      if(success)
+        p You have successfully submitted your game!
