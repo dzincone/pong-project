@@ -180,7 +180,7 @@ input.logout {
 .current-games {
   border: 2px solid #3498db;
   border-radius: 10px;
-  height: 30vh;
+  height: auto;
   width: 70%;
   margin: 0 auto;
   margin-top: 7vh;

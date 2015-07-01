@@ -172,12 +172,6 @@ play.addEventListener("click", function (e) {
 }); //Ends event listener
 
 
-
-
-
-
-
-
 // play.addEventListener("click", function() {
 //   var button = document.getElementsByTagName("button");
 //
