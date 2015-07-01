@@ -56,9 +56,17 @@ router.post('/home', function( req, res, next) {
                           type: req.body.type,
                           games: req.body.games,
                           points: req.body.points,
+                          opponent: req.body.opponent,
                           name: req.cookies.currentUser});
   res.redirect('/');
 });
+
+router.get('/data', function(req, res, next) {
+  usernameCollection.find({}, function(err, data) {
+    console.log(data);
+    res.json(data)
+  })
+})
 
 
 module.exports = router;

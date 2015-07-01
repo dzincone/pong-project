@@ -9,19 +9,18 @@ block content
         input.logout(type="submit", value="Logout")
   .account-main
     .row
+      .play
+          button.button(type="button" value="1 Time Play") 1 Time Play
+    .row
       .current-games
         .row
           h2 Upcoming Games
-        for val in data
-          .upcoming 
-            span= val.mode + " "
-            span= val.type + " "
-            span= val.games + " "
-            span= val.points + " "
-            
-    .row
-      .play
-          button.button(type="button" value="1 Time Play") 1 Time Play
+        if(data)
+          for val in data
+            .upcoming 
+              button.accept
+                = val.opponent
+              
     .row
       if(success)
         p You have successfully submitted your game!
