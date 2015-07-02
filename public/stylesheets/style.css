@@ -383,9 +383,40 @@ input.reject:focus {
 }
 
 .win {
-  background-color: green;
+  background-color: #2ecc71;
+  margin-bottom: 2vh;
+  width: 100%;
+  font-size: 16px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .lose {
-  background-color: red;
+  background-color: #e74c3c;
+  margin-bottom: 2vh;
+  width: 100%;
+  font-size: 16px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.past-games {
+  border: 2px solid #e67e22;
+  border-radius: 10px;
+  height: auto;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 7vh;
+  text-align: center;
+
+}
+
+.success {
+  color: #e67e22;
 }

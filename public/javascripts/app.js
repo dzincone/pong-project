@@ -11,6 +11,10 @@ play.addEventListener("click", function (e) {
         formInfo.push(e.target.value);
         var div = document.getElementsByClassName("play")[0];
         div.innerHTML = "";
+        var title = document.createElement("h2");
+        title.className = "thirds";
+        title.innerHTML = "Individual or Team?"
+        div.appendChild(title);
         var button = document.createElement("button");
         button.className = "button";
         button.type = "button";
@@ -98,6 +102,10 @@ play.addEventListener("click", function (e) {
       formInfo.push(e.target.value);
       var div = document.getElementsByClassName("play")[0];
       div.innerHTML = "";
+      var title = document.createElement("h2");
+      title.className = "thirds";
+      title.innerHTML = "Are You Sure?"
+      div.appendChild(title);
       var formDiv = document.createElement("div");
       formDiv.className = "formDiv";
       div.appendChild(formDiv);
