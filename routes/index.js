@@ -5,15 +5,20 @@ var db = require('monk')(process.env.MONGOLAB_URI);
 var usernameCollection = db.get('login');
 var gamesCollection = db.get('games');
 var newGamesCollection = db.get('newgames');
+var resultsCollection = db.get('results');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   req.cookies.success;
+  req.cookies.firstName;
   if(req.cookies.currentUser) {
       newGamesCollection.find({$or: [{person2: req.cookies.currentUser}, {person1: req.cookies.currentUser}]}, function (err, record) {
         gamesCollection.find({opponent: req.cookies.currentUser}, function(err, data) {
           gamesCollection.find({name: req.cookies.currentUser}, function (err, pending) {
-              res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser});
+            resultsCollection.find({$or: [{person1: req.cookies.currentUser}, {person2: req.cookies.currentUser}]}, function (err, results) {
+
+                res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser, results: results});
+            })
           });
         });
       });
@@ -21,6 +26,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 }
 });
+
+router.get("/newgame/:id", function (req, res, next) {
+  newGamesCollection.find({_id: req.params.id}, function (err, data) {
+
+      res.render("ping-pong/newgame", {data: data, currentUser: req.cookies.currentUser});
+  })
+})
 
 router.post('/', function (req, res, next) {
   var errors = [];
@@ -36,6 +48,7 @@ router.post('/', function (req, res, next) {
     var crypt = bcrypt.compareSync(req.body.password, data.password);
     if(crypt) {
       res.cookie("currentUser", req.body.username);
+      res.cookie("firstName", data.name);
       res.redirect('/');
       }
     } else {
@@ -51,6 +64,7 @@ router.post('/', function (req, res, next) {
 
 router.post('/logout', function (req, res, next) {
   res.clearCookie("currentUser");
+  res.clearCookie("firstName")
   res.redirect("/");
 });
 
@@ -77,13 +91,26 @@ router.post('/new/:id', function(req, res, next) {
   res.redirect('/');
 });
 
+router.post("/results/:id", function(req, res, next) {
+  resultsCollection.insert({person1: req.body.person1,
+                            person2: req.body.person2,
+                            mode: req.body.mode,
+                            type: req.body.type,
+                            games: req.body.games,
+                            points: req.body.points,
+                            winner: req.body.winner});
+  newGamesCollection.remove({_id: req.params.id});
+
+  res.redirect('/');
+})
+
 router.post('/delete/:id', function(req, res, next) {
   gamesCollection.remove({_id: req.params.id});
   res.redirect('/');
 });
 
 router.get('/data', function(req, res, next) {
-  req.cookies.currentUser
+  req.cookies.currentUser;
   usernameCollection.find({username: {$ne: req.cookies.currentUser}}, function(err, data) {
     res.json(data)
   });

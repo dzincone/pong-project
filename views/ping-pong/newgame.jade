@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  .header
+    .title
+      h1 Galvanize Ping Pong
+    .user-info
+      form.logout(action="/logout", method="post")
+        input.logout(type="submit", value="Logout")
+  .currentgames
+    .left
+      .row
+        h3= data[0].person1
+    .middle
+      .row
+        h3 Vs
+    .right
+      .row
+        h3= data[0].person2
+    
+    .results
+      .row
+        form(action="/results/" + data[0]._id, method="post")
+          input(type="hidden", name="person1", value=data[0].person1)
+          input(type="hidden", name="person2", value=data[0].person2)
+          input(type="hidden", name="mode", value=data[0].mode)
+          input(type="hidden", name="type", value=data[0].type)
+          input(type="hidden", name="games", value=data[0].games)
+          input(type="hidden", name="points", value=data[0].points)
+          p Who won?
+          p #{data[0].person1}
+          
+            input(type="radio", name="winner", value=data[0].person1)
+            span         
+            input(type="radio", name="winner", value=data[0].person2)
+            span #{data[0].person2}
+          input(type="submit", value="Finish Game")
+          

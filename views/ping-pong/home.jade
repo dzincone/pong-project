@@ -14,7 +14,8 @@ block content
   .row
     if(success)
       p You have successfully submitted your game!
-    .row
+                        
+  .row
       .current-games
         .row
           h2 Upcoming Games
@@ -22,12 +23,18 @@ block content
           for matches in games
             .row
               if matches.person1 === currentUser
-                button.accepted= matches.person2
+                .playdiv
+                  a.play-game(href="/newgame/" + matches._id) Play
+                .playagainst 
+                  span against #{matches.person2}
               if matches.person2 === currentUser
-                button.accepted= matches.person1
+                .playdiv
+                  a.play-game(href="/newgame/" + matches._id) Play
+                .playagainst
+                  span against #{matches.person1}
               
               
-    .row
+  .row
       .upcoming-games
         .row
           h2 Pending Games
@@ -46,7 +53,6 @@ block content
                     input(type="hidden" name="points" value=val.points)
                     input(type="hidden" name="person2" value=val.name)
                     input.accept(type="submit" value="Accept")
-                    
                 .reject
                   form(action="/delete/" + val._id, method="post")
                     input.reject(type="submit", value="Reject")
@@ -54,3 +60,23 @@ block content
                   if val.opponent != val.name
                     p= val.name + " "
                       span wants to play!
+      
+  .row
+    .past-games
+      .row
+        h2 Finished Games
+      if(results)
+        for end in results
+          .row 
+            if end.winner === currentUser
+              .win Congrats you won!
+                if end.person1 === currentUser
+                  .against You beat #{end.person2}
+                if end.person2 === currentUser
+                  .against You beat #{end.person1}
+            if end.winner != currentUser
+              .lose Sorry, but you lost...
+                if end.person1 === currentUser
+                  .against You were defeated by #{end.person2}
+                if end.person2 === currentUser
+                  .against You were defeated by #{end.person2}
