@@ -4,13 +4,18 @@ var bcrypt = require('bcryptjs');
 var db = require('monk')(process.env.MONGOLAB_URI);
 var usernameCollection = db.get('login');
 var gamesCollection = db.get('games');
+var newGamesCollection = db.get('newgames');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   req.cookies.success;
   if(req.cookies.currentUser) {
-      gamesCollection.find({name: req.cookies.currentUser}, function(err, data) {
-        res.render('ping-pong/home', {success: req.cookies.success, data: data})
+      newGamesCollection.find({$or: [{person2: req.cookies.currentUser}, {person1: req.cookies.currentUser}]}, function (err, record) {
+        gamesCollection.find({opponent: req.cookies.currentUser}, function(err, data) {
+          gamesCollection.find({name: req.cookies.currentUser}, function (err, pending) {
+              res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser});
+          });
+        });
       });
   }else {
   res.render('index', { title: 'Express' });
@@ -61,12 +66,29 @@ router.post('/home', function( req, res, next) {
   res.redirect('/');
 });
 
+router.post('/new/:id', function(req, res, next) {
+  newGamesCollection.insert({mode: req.body.mode,
+                          type: req.body.type,
+                          games: req.body.games,
+                          points: req.body.points,
+                          person2: req.body.person2,
+                          person1: req.cookies.currentUser});
+  gamesCollection.remove({_id: req.params.id});
+  res.redirect('/');
+});
+
+router.post('/delete/:id', function(req, res, next) {
+  gamesCollection.remove({_id: req.params.id});
+  res.redirect('/');
+});
+
 router.get('/data', function(req, res, next) {
-  usernameCollection.find({}, function(err, data) {
-    console.log(data);
+  req.cookies.currentUser
+  usernameCollection.find({username: {$ne: req.cookies.currentUser}}, function(err, data) {
     res.json(data)
-  })
-})
+  });
+});
+
 
 
 module.exports = router;

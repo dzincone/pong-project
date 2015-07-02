@@ -1,6 +1,8 @@
 var play = document.getElementsByClassName("play")[0];
 var formInfo = [];
 var formNames = ["mode", "type", "games", "points", "opponent"];
+var formNewGame = ["mode", "type", "games", "points", "person1"];
+
 
 play.addEventListener("click", function (e) {
   var button = document.getElementsByTagName("button");
@@ -65,6 +67,33 @@ play.addEventListener("click", function (e) {
           button.innerHTML = "Play to 21";
           div.appendChild(button);
     }
+    else if (e.target.className === "button-third2") {
+      formInfo.push(e.target.value);
+      var xhr = new XMLHttpRequest;
+      xhr.open("get", "/data", true);
+      xhr.addEventListener("load", function() {
+        xhr = xhr.response;
+        xhr = JSON.parse(xhr);
+
+        var div = document.getElementsByClassName("play")[0];
+        div.innerHTML = "";
+        var title = document.createElement("h2");
+        title.className = "thirds";
+        title.innerHTML = "Who to play?"
+        div.appendChild(title);
+        console.log(xhr.length)
+
+        for (var i = 0; i < xhr.length; i++) {
+          var button = document.createElement("button");
+          button.className = "button-third3";
+          button.type = "button";
+          button.value = xhr[i].username;
+          button.innerHTML = xhr[i].name;
+          div.appendChild(button);
+        }
+      });
+      xhr.send();
+    }
     else if (e.target.className === "button-third3") {
       formInfo.push(e.target.value);
       var div = document.getElementsByClassName("play")[0];
@@ -96,62 +125,4 @@ play.addEventListener("click", function (e) {
       form.appendChild(button);
       console.log(formInfo);
     }
-    else if (e.target.className === "button-third2") {
-      formInfo.push(e.target.value);
-      var xhr = new XMLHttpRequest;
-      xhr.open("get", "/data", true);
-      xhr.addEventListener("load", function() {
-        xhr = xhr.response;
-        xhr = JSON.parse(xhr);
-
-        var div = document.getElementsByClassName("play")[0];
-        div.innerHTML = "";
-        var title = document.createElement("h2");
-        title.className = "thirds";
-        title.innerHTML = "Who to play?"
-        div.appendChild(title);
-        console.log(xhr.length)
-
-        for (var i = 0; i < xhr.length; i++) {
-          var button = document.createElement("button");
-          button.className = "button-third3";
-          button.type = "button";
-          button.value = xhr[i].username;
-          button.innerHTML = xhr[i].name;
-          div.appendChild(button);
-        }
-      });
-      xhr.send();
-    }
-
-
-      // var div = document.getElementsByClassName("play")[0];
-      // div.innerHTML = "";
-      // var formDiv = document.createElement("div");
-      // formDiv.className = "formDiv";
-      // div.appendChild(formDiv);
-      // var form = document.createElement("form");
-      // form.action = "/home";
-      // form.method = "post";
-      // form.id = "newGame";
-      // formDiv.appendChild(form);
-      // console.log(formInfo[1]);
-      //
-      // for(var i = 0; i < formInfo.length; i++) {
-      //   var input = document.createElement("input");
-      //   input.type = "hidden";
-      //   input.value = formInfo[i];
-      //   input.name = formNames[i];
-      //   form.appendChild(input);
-      //   }
-      //
-      // var button = document.createElement("button");
-      // button.type = "submit";
-      // button.form = "newgame";
-      // button.value = "submit";
-      // button.className = "submit";
-      // button.innerHTML = "Submit Game";
-      // form.appendChild(button);
-      // console.log(formInfo);
-    // }
 }); //Ends event listener

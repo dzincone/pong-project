@@ -11,16 +11,46 @@ block content
     .row
       .play
           button.button(type="button" value="1 Time Play") 1 Time Play
+  .row
+    if(success)
+      p You have successfully submitted your game!
     .row
       .current-games
         .row
           h2 Upcoming Games
-        if(data)
-          for val in data
-            .upcoming 
-              button.accept
-                = val.opponent
+        if(games)
+          for matches in games
+            .row
+              if matches.person1 === currentUser
+                button.accepted= matches.person2
+              if matches.person2 === currentUser
+                button.accepted= matches.person1
+              
               
     .row
-      if(success)
-        p You have successfully submitted your game!
+      .upcoming-games
+        .row
+          h2 Pending Games
+        if(pending)
+          for pend in pending
+            .pending
+              p Waiting on #{pend.opponent} to accept invitation!
+        if(data)
+          for val in data
+              .upcoming
+                .accept
+                  form(action="/new/" + val._id, method="post")
+                    input(type="hidden" name="mode" value=val.mode)
+                    input(type="hidden" name="type" value=val.type)
+                    input(type="hidden" name="games" value=val.games)
+                    input(type="hidden" name="points" value=val.points)
+                    input(type="hidden" name="person2" value=val.name)
+                    input.accept(type="submit" value="Accept")
+                    
+                .reject
+                  form(action="/delete/" + val._id, method="post")
+                    input.reject(type="submit", value="Reject")
+                .names 
+                  if val.opponent != val.name
+                    p= val.name + " "
+                      span wants to play!

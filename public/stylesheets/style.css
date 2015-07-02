@@ -186,6 +186,15 @@ input.logout {
   margin-top: 7vh;
 }
 
+.upcoming-games {
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  height: auto;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 7vh;
+}
+
 .play {
   width: 50%;
   height: auto;
@@ -243,4 +252,70 @@ button.submit:focus {
 
 button.submit:hover {
   background-color: #e67e22;
+}
+
+.upcoming {
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+  margin-bottom: 3vh;
+}
+
+.accept {
+  display: inline-block;
+  width: 20%;
+  margin-right: 5%;
+}
+
+.reject {
+  display: inline-block;
+  width: 20%;
+  margin-right: 5%;
+}
+
+.names {
+  display: inline-block;
+  width: 50%;
+}
+
+input.accept{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 1px solid green;
+  border-radius: 10px;
+  outline: none;
+  font-size:22px;
+  color: green;
+}
+
+input.reject {
+  width: 100%;
+  height: auto%;
+  background-color: #fff;
+  border: 1px solid red;
+  border-radius: 10px;
+  outline: none;
+  font-size:22px;
+  color: red;
+}
+
+input.accept:hover {
+  background-color: green;
+  color: white;
+}
+
+input.reject:hover {
+  background-color: red;
+  color: white;
+}
+
+input.accept:focus {
+  background-color: green;
+  color: white;
+}
+
+input.reject:focus {
+  background-color: red;
+  color: white;
 }
