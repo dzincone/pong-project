@@ -261,18 +261,23 @@ button.submit:hover {
   margin: 0 auto;
   text-align: left;
   margin-bottom: 3vh;
+  border-bottom: 2px solid orange;
 }
 
 .accept {
   display: inline-block;
   width: 20%;
   margin-right: 5%;
+  vertical-align: top;
+  margin-top: 5vh;
 }
 
 .reject {
   display: inline-block;
   width: 20%;
   margin-right: 5%;
+  vertical-align: top;
+  margin-top: 5vh;
 }
 
 .names {
@@ -419,4 +424,21 @@ input.reject:focus {
 
 .success {
   color: #e67e22;
+}
+
+input.finish {
+  width: 20%;
+  height: 100%;
+  background-color: #34495e;
+  border: 1px solid #2ecc71;
+  border-radius: 10px;
+  outline: none;
+  font-size:22px;
+  color: #fff;
+}
+
+input.finish:hover {
+  background-color: orange;
+  color: #fff;
+  border: 1px solid orange;
 }

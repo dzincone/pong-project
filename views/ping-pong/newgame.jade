@@ -30,9 +30,12 @@ block content
           p Who won?
           p #{data[0].person1}
           
-            input(type="radio", name="winner", value=data[0].person1)
+            input(type="radio", name="winner", value=data[0].person1, required)
             span         
             input(type="radio", name="winner", value=data[0].person2)
             span #{data[0].person2}
-          input(type="submit", value="Finish Game")
+          input.finish(type="submit", value="Finish Game")
+  .row 
+    p
+    a(href="/") << Back to Games!
           
