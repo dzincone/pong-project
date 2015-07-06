@@ -16,13 +16,13 @@ block content
                 h3
                   label(for="username") Username 
               .col2
-                input.input(type="email", id="username", name="username", autofocus, value= username)
+                input.input(type="email", id="username", name="username", autofocus, value= username, placeholder="Email")
             .row
               .col1
                 h3 
                   label(for="password") Password 
               .col2
-                input.input(type="password", id="password", name="password")
+                input.input(type="password", id="password", name="password", placeholder="Password")
             .row 
               input.login(type="submit", value="Log In")
             if(error)

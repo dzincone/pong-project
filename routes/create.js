@@ -47,6 +47,9 @@ router.post('/signup', function(req, res, next) {
   })
 
 }
+else {
+  res.render('ping-pong/account', {error: errors});
+}
 });
   // usernameCollection.insert({username: req.body.email, password: hash, name: req.body.first_name});
   // res.redirect('/');
