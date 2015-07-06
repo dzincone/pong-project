@@ -5,8 +5,9 @@ block content
     .title
       h1 Galvanize Ping Pong
     .user-info
-      form.logout(action="/logout", method="post")
-        input.logout(type="submit", value="Logout")
+      span Hello #{firstName}, 
+        form.logout(action="/logout", method="post")
+          input.logout(type="submit", value="Logout")
   .account-main
     .row
       .play

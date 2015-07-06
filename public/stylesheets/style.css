@@ -3,9 +3,10 @@ html {
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px;
   box-sizing: border-box;
   margin: 0 0;
+  font-family: 'Oswald', sans-serif;
 }
 
 a {

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
           gamesCollection.find({name: req.cookies.currentUser}, function (err, pending) {
             resultsCollection.find({$or: [{person1: req.cookies.currentUser}, {person2: req.cookies.currentUser}]}, function (err, results) {
 
-                res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser, results: results});
+                res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser, firstName: req.cookies.firstName, results: results});
             })
           });
         });
@@ -50,6 +50,10 @@ router.post('/', function (req, res, next) {
       res.cookie("currentUser", req.body.username);
       res.cookie("firstName", data.name);
       res.redirect('/');
+      }
+      else {
+        errors.push("The username/password entered is incorrect.");
+        res.render('index', {username: req.body.username, error: errors})
       }
     } else {
       errors.push("The username/password entered is incorrect.");
