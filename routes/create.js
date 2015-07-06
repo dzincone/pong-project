@@ -29,19 +29,19 @@ router.post('/signup', function(req, res, next) {
   if (errors.length === 0) {
   res.cookie("firstName", req.body.first_name);
   res.cookie("currentUser", req.body.email);
-  usernameCollection.findOne({username: req.body.email}, function (err, data) {
+  usernameCollection.findOne({username: req.body.email.toLowerCase()}, function (err, data) {
     if(data) {
-    if (req.body.email === data.username) {
+    if (req.body.email.toLowerCase() === data.username.toLowerCase()) {
       errors.push("This username has already been taken");
       res.render('ping-pong/account', {error: errors});
     }
-    else {
-      usernameCollection.insert({username: req.body.email, password: hash, name: req.body.first_name});
-      res.redirect('/');
-    }
+    // else {
+    //   usernameCollection.insert({username: req.body.email.toLowerCase(), password: hash, name: req.body.first_name});
+    //   res.redirect('/');
+    // }
   }
   else {
-    usernameCollection.insert({username: req.body.email, password: hash, name: req.body.first_name});
+    usernameCollection.insert({username: req.body.email.toLowerCase(), password: hash, name: req.body.first_name});
     res.redirect('/');
   }
   })
