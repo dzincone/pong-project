@@ -9,15 +9,13 @@ var resultsCollection = db.get('results');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  req.cookies.success;
-  req.cookies.firstName;
-  if(req.cookies.currentUser) {
-      newGamesCollection.find({$or: [{person2: req.cookies.currentUser}, {person1: req.cookies.currentUser}]}, function (err, record) {
-        gamesCollection.find({opponent: req.cookies.currentUser}, function(err, data) {
-          gamesCollection.find({name: req.cookies.currentUser}, function (err, pending) {
-            resultsCollection.find({$or: [{person1: req.cookies.currentUser}, {person2: req.cookies.currentUser}]}, function (err, results) {
+  if(req.session.currentUser) {
+      newGamesCollection.find({$or: [{person2: req.session.currentUser}, {person1: req.session.currentUser}]}, function (err, record) {
+        gamesCollection.find({opponent: req.session.currentUser}, function(err, data) {
+          gamesCollection.find({name: req.session.currentUser}, function (err, pending) {
+            resultsCollection.find({$or: [{person1: req.session.currentUser}, {person2: req.session.currentUser}]}, function (err, results) {
 
-                res.render('ping-pong/home', {success: req.cookies.success, data: data, games: record, pending: pending, currentUser: req.cookies.currentUser, firstName: req.cookies.firstName, results: results});
+                res.render('ping-pong/home', { data: data, games: record, pending: pending, currentUser: req.session.currentUser, firstName: req.session.firstName, results: results});
             })
           });
         });
@@ -30,7 +28,7 @@ router.get('/', function(req, res, next) {
 router.get("/newgame/:id", function (req, res, next) {
   newGamesCollection.find({_id: req.params.id}, function (err, data) {
 
-      res.render("ping-pong/newgame", {data: data, currentUser: req.cookies.currentUser});
+      res.render("ping-pong/newgame", {data: data, currentUser: req.session.currentUser});
   })
 })
 
@@ -47,8 +45,8 @@ router.post('/', function (req, res, next) {
     if(data) {
     var crypt = bcrypt.compareSync(req.body.password, data.password);
     if(crypt) {
-      res.cookie("currentUser", req.body.username);
-      res.cookie("firstName", data.name);
+      req.session.currentUser = req.body.username;
+      req.session.firstName =  data.name;
       res.redirect('/');
       }
       else {
@@ -67,8 +65,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/logout', function (req, res, next) {
-  res.clearCookie("currentUser");
-  res.clearCookie("firstName")
+  req.session = null;
   res.redirect("/");
 });
 
@@ -80,7 +77,7 @@ router.post('/home', function( req, res, next) {
                           games: req.body.games,
                           points: req.body.points,
                           opponent: req.body.opponent,
-                          name: req.cookies.currentUser});
+                          name: req.session.currentUser});
   res.redirect('/');
 });
 
@@ -90,7 +87,7 @@ router.post('/new/:id', function(req, res, next) {
                           games: req.body.games,
                           points: req.body.points,
                           person2: req.body.person2,
-                          person1: req.cookies.currentUser});
+                          person1: req.session.currentUser});
   gamesCollection.remove({_id: req.params.id});
   res.redirect('/');
 });
@@ -114,8 +111,8 @@ router.post('/delete/:id', function(req, res, next) {
 });
 
 router.get('/data', function(req, res, next) {
-  req.cookies.currentUser;
-  usernameCollection.find({username: {$ne: req.cookies.currentUser}}, function(err, data) {
+  req.session.currentUser;
+  usernameCollection.find({username: {$ne: req.session.currentUser}}, function(err, data) {
     res.json(data)
   });
 });
