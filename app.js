@@ -19,7 +19,8 @@ app.set('view engine', 'jade');
 app.set('trust proxy', 1);
 
 app.use(session({
-  keys: ["ponlsjdlfkjgy", "helkjaslkdjflo"]
+  name: "session"
+  keys: [process.env.KEY1, process.env.KEY2]
 }));
 
 
