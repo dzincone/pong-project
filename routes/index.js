@@ -15,7 +15,8 @@ router.get('/', function(req, res, next) {
           gamesCollection.find({name: req.session.currentUser}, function (err, pending) {
             resultsCollection.find({$or: [{person1: req.session.currentUser}, {person2: req.session.currentUser}]}, function (err, results) {
 
-                res.render('ping-pong/home', { data: data, games: record, pending: pending, currentUser: req.session.currentUser, firstName: req.session.firstName, results: results});
+                res.render('ping-pong/home', { data: data, games: record,
+                  success: req.cookies.success, pending: pending, currentUser: req.session.currentUser, firstName: req.session.firstName, results: results});
             })
           });
         });
