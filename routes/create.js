@@ -27,8 +27,6 @@ router.post('/signup', function(req, res, next) {
   }
 
   if (errors.length === 0) {
-  res.cookie("firstName", req.body.first_name);
-  res.cookie("currentUser", req.body.email);
   usernameCollection.findOne({username: req.body.email.toLowerCase()}, function (err, data) {
     if(data) {
     if (req.body.email.toLowerCase() === data.username.toLowerCase()) {
@@ -41,6 +39,8 @@ router.post('/signup', function(req, res, next) {
     // }
   }
   else {
+    req.session.firstName = req.body.first_name;
+    req.session.currentUser = req.body.email;
     usernameCollection.insert({username: req.body.email.toLowerCase(), password: hash, name: req.body.first_name});
     res.redirect('/');
   }

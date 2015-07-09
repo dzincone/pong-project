@@ -7,6 +7,8 @@ var gamesCollection = db.get('games');
 var newGamesCollection = db.get('newgames');
 var resultsCollection = db.get('results');
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if(req.session.currentUser) {
@@ -27,11 +29,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/newgame/:id", function (req, res, next) {
-  newGamesCollection.find({_id: req.params.id}, function (err, data) {
+  if(req.session.currentUser) {
+    newGamesCollection.findOne({_id: req.params.id}, function (err, data) {
+      if(req.session.currentUser === data.person1 || req.session.currentUser === data.person2) {
 
-      res.render("ping-pong/newgame", {data: data, currentUser: req.session.currentUser});
-  })
-})
+        if(data) {
+          if(req.session.currentUser === data.person1 || data.person2) {
+              res.render("ping-pong/newgame", {data: data, currentUser: req.session.currentUser});
+          }
+          else {
+            res.redirect('/')
+          }
+        }
+      }
+      else {
+        res.redirect('/')
+      }
+    })
+  }
+  else {
+    res.redirect('/')
+  }
+});
 
 router.post('/', function (req, res, next) {
   var errors = [];
