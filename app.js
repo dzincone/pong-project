@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').load();
 var session = require('cookie-session');
+var passport = require('passport');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
