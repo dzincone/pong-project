@@ -20,3 +20,4 @@
 ## Future Implementation
 - Team game creation
 - Complete player profiles with statistics
+- Slack passport integration for OAuth
